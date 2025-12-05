@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -61,7 +62,7 @@ const MobileBottomBar = () => {
   };
 
   const baseIconClasses = clsx(
-    'hover:cursor-pointer duration-250',
+    'hover:cursor-pointer ',
     'active:scale-100 active:duration-225',
     'text-[var(--secondary-color)] hover:text-[var(--main-color)]'
   );
@@ -110,15 +111,33 @@ const MobileBottomBar = () => {
       </div>
 
       <div className='flex items-center gap-2 text-xs text-[var(--secondary-color)]'>
-        {infoItems.map((item, idx) => (
-          <React.Fragment key={idx}>
+        {infoItems.map((item, idx) => {
+          const isVersionItem = idx === infoItems.length - 1;
+          const content = (
             <span className='flex gap-1'>
               <item.icon size={16} />
               {item.text}
             </span>
-            {idx < infoItems.length - 1 && <span>~</span>}
-          </React.Fragment>
-        ))}
+          );
+
+          return (
+            <React.Fragment key={idx}>
+              {isVersionItem ? (
+                <Link
+                  href='/patch-notes'
+                  className='flex gap-1 hover:text-[var(--main-color)] hover:cursor-pointer '
+                  onClick={playClick}
+                >
+                  <item.icon size={16} />
+                  {item.text}
+                </Link>
+              ) : (
+                content
+              )}
+              {idx < infoItems.length - 1 && <span>~</span>}
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );
