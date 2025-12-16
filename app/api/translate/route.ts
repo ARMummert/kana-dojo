@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { toRomaji, isJapanese } from 'wanakana';
+import Kuroshiro from 'kuroshiro';
+import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
 
 interface TranslationRequestBody {
   text: string;
@@ -16,16 +17,55 @@ interface GoogleTranslateResponse {
   };
 }
 
+// Singleton kuroshiro instance for reuse across requests
+let kuroshiroInstance: Kuroshiro | null = null;
+let kuroshiroInitPromise: Promise<Kuroshiro> | null = null;
+
+/**
+ * Get or initialize the kuroshiro instance
+ * Uses singleton pattern to avoid reinitializing on every request
+ */
+async function getKuroshiro(): Promise<Kuroshiro> {
+  if (kuroshiroInstance) {
+    return kuroshiroInstance;
+  }
+
+  if (kuroshiroInitPromise) {
+    return kuroshiroInitPromise;
+  }
+
+  kuroshiroInitPromise = (async () => {
+    const kuroshiro = new Kuroshiro();
+    const analyzer = new KuromojiAnalyzer();
+    await kuroshiro.init(analyzer);
+    kuroshiroInstance = kuroshiro;
+    return kuroshiro;
+  })();
+
+  return kuroshiroInitPromise;
+}
+
 /**
  * Generate romanization (romaji) for Japanese text
- * Uses wanakana for hiragana/katakana and passes through kanji as-is
+ * Uses kuroshiro with kuromoji analyzer for full kanji support
  */
-function generateRomanization(japaneseText: string): string {
-  if (!japaneseText || !isJapanese(japaneseText, { passKanji: true })) {
+async function generateRomanization(japaneseText: string): Promise<string> {
+  if (!japaneseText) {
     return '';
   }
-  // toRomaji converts hiragana/katakana to romaji, kanji passes through
-  return toRomaji(japaneseText, { upcaseKatakana: false });
+
+  try {
+    const kuroshiro = await getKuroshiro();
+    const romaji = await kuroshiro.convert(japaneseText, {
+      to: 'romaji',
+      mode: 'spaced',
+      romajiSystem: 'hepburn'
+    });
+    return romaji;
+  } catch (error) {
+    console.error('Kuroshiro conversion error:', error);
+    return '';
+  }
 }
 
 /**
