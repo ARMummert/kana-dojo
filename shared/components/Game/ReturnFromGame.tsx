@@ -36,7 +36,7 @@ interface StatItemProps {
 }
 
 const StatItem = ({ icon: Icon, value }: StatItemProps) => (
-  <p className='text-xl flex flex-row items-center gap-1'>
+  <p className='flex flex-row items-center gap-1 text-xl'>
     <Icon />
     <span>{value}</span>
   </p>
@@ -95,23 +95,23 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
   return (
     <div
       className={clsx(
-        'flex flex-col w-full md:w-2/3 lg:w-1/2 mt-4 md:mt-8',
+        'mt-4 flex w-full flex-col md:mt-8 md:w-2/3 lg:w-1/2',
         isHidden && 'hidden'
       )}
     >
       {/* Header with exit and progress */}
-      <div className='w-full flex flex-row gap-4 md:gap-6 items-center justify-between'>
+      <div className='flex w-full flex-row items-center justify-between gap-4 md:gap-6'>
         <Link href={href} ref={buttonRef} onClick={handleExit}>
           <X
             size={32}
-            className='hover:cursor-pointer duration-250 text-[var(--border-color)] hover:text-[var(--secondary-color)]'
+            className='text-[var(--border-color)] duration-250 hover:cursor-pointer hover:text-[var(--secondary-color)]'
           />
         </Link>
         <ProgressBar />
         {/* Stats button - visible only on small screens */}
         <ActionButton
           borderRadius='xl'
-          className='py-1 px-3 text-xl w-auto sm:hidden'
+          className='w-auto px-3 py-1 text-xl sm:hidden'
           onClick={handleShowStats}
         >
           <ChartSpline size={24} />
@@ -119,9 +119,9 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
       </div>
 
       {/* Game mode and stats row */}
-      <div className='flex flex-row w-full items-center'>
+      <div className='flex w-full flex-row items-center'>
         {/* Game mode indicator */}
-        <p className='w-1/2 text-lg md:text-xl  flex justify-start items-center gap-1 sm:gap-2 sm:pl-1'>
+        <p className='flex w-1/2 items-center justify-start gap-1 text-lg sm:gap-2 sm:pl-1 md:text-xl'>
           {ModeIcon && (
             <ModeIcon
               className={clsx('text-[var(--main-color)]', modeConfig.className)}
@@ -133,7 +133,7 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
         </p>
 
         {/* Stats display */}
-        <div className='w-1/2 flex flex-row gap-1.5 sm:gap-2 md:gap-3 items-center justify-end  py-2 text-[var(--secondary-color)]'>
+        <div className='flex w-1/2 flex-row items-center justify-end gap-1.5 py-2 text-[var(--secondary-color)] sm:gap-2 md:gap-3'>
           <StatItem icon={SquareCheck} value={numCorrectAnswers} />
           <StatItem icon={SquareX} value={numWrongAnswers} />
           <StatItem icon={Flame} value={currentStreak} />
@@ -142,7 +142,8 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
           {/* Stats button - hidden on small screens, visible on sm and up */}
           <ActionButton
             borderRadius='2xl'
-            className='p-2 md:px-6 text-xl w-auto hidden sm:flex'
+            borderBottomThickness={8}
+            className='hidden w-auto p-2 text-xl sm:flex md:px-6'
             onClick={handleShowStats}
           >
             <ChartSpline size={24} />

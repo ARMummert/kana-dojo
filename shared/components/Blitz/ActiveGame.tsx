@@ -253,8 +253,8 @@ function GameHeader({
           onClick={onCancel}
           colorScheme='secondary'
           borderColorScheme='secondary'
-          borderRadius='xl'
-          borderBottomThickness={6}
+          borderRadius='2xl'
+          borderBottomThickness={10}
           className='w-auto px-3 py-2'
           title='Cancel challenge'
         >
@@ -450,15 +450,15 @@ function RealTimeStats({
 }) {
   return (
     <div className='grid grid-cols-3 gap-2 text-center text-sm'>
-      <div className='rounded bg-[var(--card-color)] p-2'>
+      <div className='rounded-lg bg-[var(--card-color)] p-2'>
         <div className='font-bold text-green-500'>{correct}</div>
         <div className='text-[var(--muted-color)]'>Correct</div>
       </div>
-      <div className='rounded bg-[var(--card-color)] p-2'>
+      <div className='rounded-lg bg-[var(--card-color)] p-2'>
         <div className='font-bold text-red-500'>{wrong}</div>
         <div className='text-[var(--muted-color)]'>Wrong</div>
       </div>
-      <div className='rounded bg-[var(--card-color)] p-2'>
+      <div className='rounded-lg bg-[var(--card-color)] p-2'>
         <div className='font-bold text-[var(--main-color)]'>{accuracy}%</div>
         <div className='text-[var(--muted-color)]'>Accuracy</div>
       </div>

@@ -254,7 +254,7 @@ const baseThemeSets: BaseThemeGroup[] = [
       },
       {
         id: 'yukata',
-        backgroundColor: 'oklch(18.83% 0.0367 263.24 / 1)',
+        backgroundColor: 'oklch(20.83% 0.0367 263.24 / 1)',
         mainColor: 'oklch(65.16% 0.1943 14.70 / 1)',
         secondaryColor: 'oklch(68.92% 0.1657 313.51 / 1)'
       },
