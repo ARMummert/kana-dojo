@@ -159,15 +159,15 @@ const Themes = () => {
                     currentTheme.id === '?'
                       ? `linear-gradient(
                           142deg,
-                          oklch(45.0% 0.14 230.0 / 1) 0%,
-                          oklch(52.0% 0.20 345.0 / 1) 11%,
-                          oklch(48.0% 0.18 95.0 / 1) 23%,
-                          oklch(44.0% 0.16 200.0 / 1) 38%,
-                          oklch(50.0% 0.22 330.0 / 1) 52%,
-                          oklch(46.0% 0.15 110.0 / 1) 64%,
-                          oklch(48.0% 0.19 295.0 / 1) 78%,
-                          oklch(52.0% 0.17 35.0 / 1) 89%,
-                          oklch(45.0% 0.14 230.0 / 1) 100%
+                          oklch(52.0% 0.14 230.0 / 1) 0%,
+                          oklch(59.0% 0.20 345.0 / 1) 11%,
+                          oklch(55.0% 0.18 95.0 / 1) 23%,
+                          oklch(51.0% 0.16 200.0 / 1) 38%,
+                          oklch(57.0% 0.22 330.0 / 1) 52%,
+                          oklch(53.0% 0.15 110.0 / 1) 64%,
+                          oklch(55.0% 0.19 295.0 / 1) 78%,
+                          oklch(59.0% 0.17 35.0 / 1) 89%,
+                          oklch(52.0% 0.14 230.0 / 1) 100%
                         )`
                       : isHovered === currentTheme.id
                         ? currentTheme.cardColor
@@ -229,22 +229,24 @@ const Themes = () => {
                   </span>
                   {currentTheme.id === 'long'
                     ? 'long loooooooong theme'
-                    : currentTheme.id.split('-').map((themeNamePart, i) => (
-                        <span
-                          key={`${currentTheme.id}-${i}`}
-                          style={{
-                            color:
-                              process.env.NODE_ENV !== 'production'
-                                ? i === 0
-                                  ? currentTheme.mainColor
-                                  : currentTheme.secondaryColor
-                                : undefined,
-                          }}
-                        >
-                          {i > 0 && ' '}
-                          {themeNamePart}
-                        </span>
-                      ))}
+                    : currentTheme.id === '?'
+                      ? ''
+                      : currentTheme.id.split('-').map((themeNamePart, i) => (
+                          <span
+                            key={`${currentTheme.id}-${i}`}
+                            style={{
+                              color:
+                                process.env.NODE_ENV !== 'production'
+                                  ? i === 0
+                                    ? currentTheme.mainColor
+                                    : currentTheme.secondaryColor
+                                  : undefined,
+                            }}
+                          >
+                            {i > 0 && ' '}
+                            {themeNamePart}
+                          </span>
+                        ))}
                 </span>
               </label>
             ))}
