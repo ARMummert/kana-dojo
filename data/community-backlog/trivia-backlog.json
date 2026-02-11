@@ -880,7 +880,8 @@
       "Budo",
       "Shodo"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "completed": true
   },
   {
     "id": 69,
@@ -892,7 +893,8 @@
       "Takoyaki",
       "Chankonabe"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "issued": true
   },
   {
     "id": 70,
